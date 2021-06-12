@@ -1,0 +1,74 @@
+<form [formGroup]="userForm">
+    <h3>User Form</h3>
+    <table>
+        <tr>
+            <th><label>First Name: </label></th>
+            <th><input type="text" formControlName="name"></th>
+        </tr>
+        <tr>
+            <th><label>Last Name:</label></th>
+            <th><input type="text" formControlName="lastName"></th>
+        </tr>
+        <tr>
+            <th><label>Document Type:</label> </th>
+            <th>
+                <!-- <input type="text" formControlName="documentType"> -->
+                <ng-select formControlName="documentType">
+                    <ng-option *ngFor="let item of documentTypeList" [value]="item.pk">{{item.documentTypeName}}</ng-option>
+                 </ng-select>
+            </th>
+        </tr>
+        <tr>
+            <th><label>Document:</label></th>
+            <th><input type="text" formControlName="documentNumber"></th>
+        </tr>
+        <tr>
+            <th><label>City:</label></th>
+            <th>
+                <!-- <input type="text" formControlName="city"> -->
+                <ng-select formControlName="city">
+                    <ng-option *ngFor="let item of cityList" [value]="item.pk">{{item.cityName}}</ng-option>
+                 </ng-select>
+                </th>
+
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger" (click)="clearForm()">Clear</button>
+                    <button type="button" class="btn btn-success" (click)="saveUser()">Save</button>
+                </div>
+            </td> 
+        </tr>
+    </table>
+</form>
+
+<table  class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">LastName</th>
+          <th scope="col">Document Type</th>
+          <th scope="col">Document</th>
+          <th scope="col">City</th>
+          <th scope="col">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let user of userList" >
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.documentType.documentTypeName}}</td>
+                <td>{{user.documentNumber}}</td>
+                <td>{{user.city.cityName}}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark" (click)="deleteUser(user.pk)"><i class="fa fa-trash" style="color: red;"></i></button>
+                    <button type="button" class="btn btn-outline-dark" (click)="patchForm(user.pk)"><i class="fa fa-edit" style="color: royalblue;"></i></button>
+                </td>
+            </tr>
+            
+        </ng-container>
+    </tbody>
+    
+</table>
